@@ -1,0 +1,74 @@
+.grid.grid--auto.grid--flush.grid--center
+  .grid__cell
+    .card{ class: card_classes(:attributes, local_assigns[:active]) }
+      = link_to edit_payment_gift_card_path(model), class: 'card__header' do
+        %span.card__header-text= t('workarea.admin.cards.attributes.title')
+        = inline_svg 'workarea/admin/icons/attributes.svg', class: 'card__icon'
+
+      - if local_assigns[:active].blank?
+        .card__body
+          %ul.list-reset
+            %li
+              %strong #{t('workarea.admin.fields.token')}:
+              = model.token
+            %li
+              %strong #{t('workarea.admin.fields.amount')}:
+              = number_to_currency model.amount
+            %li
+              %strong #{t('workarea.admin.fields.order_id')}:
+              = model.order_id.presence || t('workarea.admin.cards.attributes.no_value')
+            %li
+              %strong #{t('workarea.admin.fields.recipient')}:
+              = model.to
+            %li
+              %strong #{t('workarea.admin.fields.from')}:
+              = model.from.presence || t('workarea.admin.cards.attributes.no_value')
+            %li
+              %strong #{t('workarea.admin.fields.message')}:
+              = model.message.presence || t('workarea.admin.cards.attributes.no_value')
+            %li
+              %strong #{t('workarea.admin.fields.notify')}:
+              = model.notify ? t('workarea.admin.true') : t('workarea.admin.false')
+            %li
+              %strong #{t('workarea.admin.fields.expires_at')}:
+              - if model.expires_at.present?
+                = local_time_ago(model.expires_at)
+              - else
+                = t('workarea.admin.cards.attributes.no_value')
+            %li
+              %strong= t('workarea.admin.fields.updated_at')
+              #{local_time_ago(model.updated_at)}
+            %li
+              %strong= t('workarea.admin.fields.created_at')
+              #{local_time_ago(model.created_at)}
+
+          = link_to edit_payment_gift_card_path(model), class: 'card__button' do
+            %span.button.button--small= t('workarea.admin.cards.attributes.button')
+
+  .grid__cell
+    .card{ class: card_classes(:redemptions, local_assigns[:active]) }
+      = link_to payment_gift_card_redemptions_path(model), class: 'card__header' do
+        %span.card__header-text= t('workarea.admin.payment_gift_cards.cards.redemptions.title')
+        = inline_svg 'workarea/admin/icons/prices.svg', class: 'card__icon'
+
+      - if local_assigns[:active].blank?
+        .card__body
+          - if model.redemptions.empty?
+            %p= t('workarea.admin.payment_gift_cards.cards.redemptions.empty')
+          - else
+            %ul.list-reset
+              - model.redemptions.take(10).each do |redemption|
+                %li
+                  %strong= redemption.order_id
+                  = number_to_currency redemption.amount
+                  #{local_time_ago(redemption.redeemed_at)}
+              - if model.redemptions.size > 10
+                %li= t('workarea.admin.cards.more', amount: model.redemptions.size - 10)
+            = link_to payment_gift_card_redemptions_path(model), class: 'card__button' do
+              %span.button.button--small= t('workarea.admin.payment_gift_cards.cards.redemptions.button')
+
+  .grid__cell
+    = render 'workarea/admin/timeline/card', timeline: model.timeline, active: local_assigns[:active]
+
+  .grid__cell
+    = render 'workarea/admin/comments/card', commentable: model, active: local_assigns[:active]

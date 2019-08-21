@@ -1,0 +1,5 @@
+- if order.gift_card_tender_amount > 0
+  %tr
+    %th= t('workarea.storefront.gift_cards.gift_card')
+    %td
+      - #{number_to_currency order.gift_card_tender_amount}

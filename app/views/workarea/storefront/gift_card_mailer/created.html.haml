@@ -1,0 +1,15 @@
+%tr
+  %td
+    %h1= t('workarea.storefront.email.gift_card_created.heading')
+    %p
+      %strong= @from
+      %br
+      = t('workarea.storefront.email.gift_card_created.message_html', link: link_to(Workarea.config.host, Workarea.config.host, style: "color: #{@config.link_color}"), amount: number_to_currency(@card.amount))
+
+    - if @card.message.present?
+      %p
+        %strong= @from
+        %br
+        = @card.message
+
+    %p= t('workarea.storefront.email.gift_card_created.how_to_redeem', token: @card.token)

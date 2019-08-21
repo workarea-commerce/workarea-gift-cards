@@ -1,0 +1,11 @@
+module Workarea
+  decorate Storefront::Checkout::SummaryViewModel, with: 'gift_cards' do
+    # Whether this checkout is using a gift card.
+    #
+    # @return [Boolean]
+    #
+    def gift_card?
+      gift_card_amount > 0
+    end
+  end
+end

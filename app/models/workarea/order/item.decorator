@@ -1,0 +1,7 @@
+module Workarea
+  decorate Order::Item, with: 'gift_cards' do
+    decorated do
+      field :gift_card, type: Boolean, default: false
+    end
+  end
+end

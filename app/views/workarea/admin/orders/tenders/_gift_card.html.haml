@@ -1,0 +1,5 @@
+%li
+  = inline_svg('workarea/admin/payment_icons/gift_card.svg', title: t('workarea.admin.orders.tenders.gift_card.title'), class: 'payment-icon')
+  = t('workarea.admin.orders.tenders.gift_card.title')
+  = tender.display_number
+  = number_to_currency tender.amount

@@ -1,0 +1,19 @@
+module Workarea
+  decorate Payment, with: 'gift_cards' do
+    decorated do
+      embeds_one :gift_card, class_name: 'Workarea::Payment::Tender::GiftCard'
+      delegate :number, to: :gift_card, allow_nil: true, prefix: true
+    end
+
+    def set_gift_card(attrs)
+      build_gift_card unless gift_card
+      gift_card.number = attrs[:number]
+      save
+    end
+
+    def reset!
+      self.gift_card = nil
+      super
+    end
+  end
+end

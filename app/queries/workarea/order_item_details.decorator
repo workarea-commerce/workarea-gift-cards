@@ -1,0 +1,11 @@
+module Workarea
+  decorate OrderItemDetails, with: 'gift_cards' do
+    decorated do
+      delegate :gift_card?, to: :product
+    end
+
+    def to_h
+      super.merge(gift_card: gift_card?)
+    end
+  end
+end

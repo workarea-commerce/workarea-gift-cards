@@ -1,0 +1,10 @@
+module Workarea
+  if Plugin.installed?(:api)
+    decorate Api::Storefront::CheckoutsController, with: 'gift_cards' do
+      def add_gift_card
+        Checkout::Steps::GiftCard.new(current_checkout).update(params)
+        render_checkout
+      end
+    end
+  end
+end

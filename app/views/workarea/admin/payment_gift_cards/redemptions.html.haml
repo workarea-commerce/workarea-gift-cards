@@ -1,0 +1,29 @@
+- @page_title = t('workarea.admin.payment_gift_cards.redemptions.title', name: @gift_card.name)
+
+.view
+  .view__header
+    .grid.grid--middle.grid--center
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@gift_card)
+          %h1= link_to @gift_card.name, url_for(@gift_card)
+
+  .view__container
+    = render_cards_for(@gift_card, :redemptions)
+
+  .view__container
+    %p.align-center= pluralize(@gift_card.redemptions.count, t('workarea.admin.payment_gift_cards.redemptions.redemption'))
+
+    - if @gift_card.redemptions.any?
+      %table
+        %thead
+          %tr
+            %th= t('workarea.admin.fields.order_id')
+            %th= t('workarea.admin.fields.amount')
+            %th= t('workarea.admin.fields.redeemed_at')
+        %tbody
+          - @gift_card.redemptions.each do |redemption|
+            %tr
+              %td= link_to redemption.order_id, order_path(redemption.order_id)
+              %td= number_to_currency redemption.amount
+              %td= local_time(redemption.redeemed_at, :long)

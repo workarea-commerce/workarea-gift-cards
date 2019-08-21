@@ -1,0 +1,32 @@
+module Workarea
+  decorate Storefront::Checkout::PaymentViewModel, with: 'gift_cards' do
+    # Whether or not to show current gift card information.
+    # True if the current payment is a valid gift card.
+    #
+    # @return [Boolean]
+    #
+    def show_gift_card?
+      payment.gift_card?
+    end
+
+    # Can the current gift card cover the entire order
+    # total? Used for rendering gift card messaging.
+    #
+    # @return [Boolean]
+    #
+    def order_covered_by_gift_card?
+      gift_card_balance >= total_after_store_credit
+    end
+
+    # Can store credit or gift card cover the entire
+    # order total? Override this method in order to prevent
+    # a default credit card from being selected if
+    # not necessary to complete the order.
+    #
+    # @return [Boolean]
+    #
+    def order_covered_by_advance_payments?
+      super || order_covered_by_gift_card?
+    end
+  end
+end

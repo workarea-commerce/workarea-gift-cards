@@ -1,0 +1,9 @@
+.data-card
+  .data-card__cell
+    %p.data-card__line.data-card__credit-card
+      = inline_svg('workarea/storefront/payment_icons/gift_card.svg', title: t('workarea.storefront.orders.tenders.gift_card.title'), class: 'payment-icon')
+      %span.data-card__credit-card-number
+        = t('workarea.storefront.credit_cards.summary', issuer: t('workarea.storefront.orders.tenders.gift_card.title'), number: tender.display_number)
+    %p.data-card__line
+      %strong
+        #{t('workarea.storefront.orders.amount')}: #{number_to_currency tender.amount}

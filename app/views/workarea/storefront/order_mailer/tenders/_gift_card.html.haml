@@ -1,0 +1,5 @@
+%p
+  = t('workarea.storefront.gift_cards.gift_card')
+  %br
+  #{tender.display_number}:
+  = number_to_currency(tender.amount)

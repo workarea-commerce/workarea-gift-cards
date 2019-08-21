@@ -1,0 +1,17 @@
+.view
+
+  %h1= t('workarea.storefront.gift_cards.check_balance')
+
+  = form_tag gift_cards_lookup_path, method: 'get' do
+
+    .property.property--responsive
+      = label_tag 'gift_card_email', class: 'property__name' do
+        %span.property__text= t('workarea.storefront.users.email')
+      .value= email_field_tag :email, nil, id: 'gift_card_email', class: 'text-box', required: true
+
+    .property.property--responsive
+      = label_tag 'gift_card_number', class: 'property__name' do
+        %span.property__text= t('workarea.storefront.gift_cards.gift_card_number')
+      .value= text_field_tag :token, nil, id: 'gift_card_number', class: 'text-box', required: true
+
+    %p= button_tag t('workarea.storefront.forms.go'), value: 'submit', class: 'button'

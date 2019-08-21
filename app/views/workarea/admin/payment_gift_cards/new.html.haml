@@ -1,0 +1,43 @@
+- @page_title = t('workarea.admin.payment_gift_cards.new.title')
+
+.view
+  .view__header
+    .grid.grid--middle.grid--center
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@gift_card)
+          %h1= t('workarea.admin.payment_gift_cards.new.title')
+
+  .view__container
+    - if @gift_card.errors.present?
+      - @gift_card.errors.full_messages.each do |message|
+        = render_message 'error', message
+
+    = form_tag payment_gift_cards_path, method: 'post', id: 'payment_gift_card_form' do
+      = hidden_field_tag 'return_to', request.referrer
+
+      .section
+        .property
+          = label_tag 'gift_card[token]', t('workarea.admin.fields.token'), class: 'property__name'
+          = text_field_tag 'gift_card[token]', @gift_card.token, class: 'text-box'
+
+        .property
+          = label_tag 'gift_card[to]', t('workarea.admin.fields.recipient'), class: 'property__name'
+          = email_field_tag 'gift_card[to]', @gift_card.to, class: 'text-box'
+
+        .property
+          = label_tag 'gift_card[notify]', t('workarea.admin.fields.notify'), class: 'property__name'
+          = check_box_tag 'gift_card[notify]', 1, false
+
+        .property
+          = label_tag 'gift_card[amount]', t('workarea.admin.fields.amount'), class: 'property__name'
+          %span $
+          = text_field_tag 'gift_card[amount]', @gift_card.amount, class: 'text-box text-box--small'
+
+        .property
+          = label_tag 'gift_card[expires_at]', t('workarea.admin.fields.expires_on'), class: 'property__name'
+          = datetime_picker_tag 'gift_card[expires_at]', @gift_card.expires_at, class: 'text-box', data: { datepicker_field: { inline: false } }
+
+      .workflow-bar
+        .grid.grid--auto.grid--right.grid--middle
+          .grid__cell= button_tag t('workarea.admin.payment_gift_cards.new.button'), value: 'create_gift_card', class: 'workflow-bar__button workflow-bar__button--create'

@@ -1,0 +1,11 @@
+module Workarea
+  decorate Catalog::Product, with: 'gift_cards' do
+    decorated do
+      field :gift_card, type: Boolean, default: false
+    end
+
+    def gift_card?
+      super || template == 'gift_card'
+    end
+  end
+end

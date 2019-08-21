@@ -1,0 +1,28 @@
+module Workarea
+  decorate Admin::DataFileExportsController, with: 'gift_cards' do
+    def set_export
+      super
+
+      if @export.model_class == Workarea::Payment::GiftCard::Redemption
+        convert_export_ids_to_query if @export.ids.present?
+        convert_query_to_redemptions_query
+      end
+    end
+
+    def convert_export_ids_to_query
+      tokens = GlobalID::Locator.locate_many(@export.ids).map(&:token)
+      @export.query_id = Search::AdminGiftCards.new(q: tokens.join(' ')).to_gid_param
+      @export.ids = []
+    end
+
+    def convert_query_to_redemptions_query
+      current_query = GlobalID.find(@export.query_id)
+
+      unless current_query.blank? || current_query.is_a?(AdminRedemptionsExport)
+        @export.query_id = AdminRedemptionsExport
+                            .new(gift_cards_query_id: @export.query_id)
+                            .to_gid_param
+      end
+    end
+  end
+end

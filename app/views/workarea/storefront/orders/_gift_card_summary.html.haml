@@ -1,0 +1,6 @@
+- if order.gift_card_tender_amount > 0
+  %tr
+    %th
+      %span= t('workarea.storefront.gift_cards.gift_card')
+    %td
+      %strong.table__price-discount −#{number_to_currency(order.gift_card_tender_amount)}

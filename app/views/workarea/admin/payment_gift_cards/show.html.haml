@@ -1,0 +1,19 @@
+- @page_title = @gift_card.name
+
+.view
+  .view__header
+    .grid.grid--middle
+      .grid__cell.grid__cell--25
+        = render 'workarea/admin/releases/select'
+      .grid__cell.grid__cell--50
+        .view__heading
+          = link_to_index_for(@gift_card)
+          %h1= @gift_card.name
+      .grid__cell.grid__cell--25
+        = render_aux_navigation_for(@gift_card)
+
+  .view__container
+    = render_cards_for(@gift_card)
+
+    .workflow-bar
+      = link_to t('workarea.admin.actions.delete'), payment_gift_card_path(@gift_card), class: 'workflow-bar__button workflow-bar__button--delete', data: { method: 'delete', confirm: t('workarea.admin.actions.delete_confirmation') }

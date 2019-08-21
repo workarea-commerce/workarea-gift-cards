@@ -1,0 +1,6 @@
+- if step.payment.gift_card && step.payment.gift_card.errors.any?
+  - step.payment.gift_card.errors.full_messages.each do |message|
+    .message.message--error
+      %p.message__type
+        %span.message__icon= t('workarea.storefront.messages.error')
+      %p.message__text= message

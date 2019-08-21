@@ -1,0 +1,82 @@
+en:
+  workarea:
+    admin:
+      activities:
+        payment_gift_card_create_html: created %{name}
+        payment_gift_card_destroy_html: deleted a payment gift card
+        payment_gift_card_update_html: updated %{name}
+      fields:
+        amount: Amount
+        balance: Balance
+        expires_on: Expires on
+        from: From
+        message: Message
+        notify: Notify Recipient
+        number: Number
+        order_id: Order ID
+        redeemed_at: Redeemed At
+        recipient: Recipient
+        token: Token
+        used: Used
+      orders:
+        tenders:
+          gift_card:
+            title: Gift Card
+      payment_gift_cards:
+        cards:
+          redemptions:
+            button: View All Redemptions
+            empty: There are no redemptions for this gift card yet.
+            title: Redemptions
+        edit:
+          button: Save Gift Card
+          title: Editing %{name}
+        gift_card: Gift Card
+        index:
+          button: Add Gift Card
+          title: Gift Cards
+          export_redemptions: Export Redemptions
+        new:
+          button: Create Gift Card
+          title: New Gift Card
+        redemptions:
+          export_button: Create Export
+          redemption: Redemption
+          title: Gift Card Redemptions
+        view_order: View Order
+      shared:
+        primary_nav:
+          gift_cards: Gift Cards
+    gift_cards:
+      capture: Gift cards are captured on authorization.
+      credit: "%{amount} added to gift card %{number}"
+      debit: "%{amount} deducted from gift card %{number}"
+      insufficient_funds: This gift card doesn't not enough balance.
+    payment_gift_card:
+      name: Gift Card %{token}
+    storefront:
+      email:
+        gift_card_created:
+          heading: You've Got a Gift Certificate!
+          how_to_redeem: To redeem your gift certificate, enter code %{token} at checkout. Enjoy!
+          message_html: has purchased a gift certificate for you to use at %{link} in the amount of %{amount}.
+          says: 'says:'
+          subject: You've Got a Gift Certificate!
+      gift_cards:
+        applied_to_order: "%{amount} will be applied to your order."
+        apply_gift_card: Apply
+        balance: Your gift card balance is %{amount}.
+        check_balance: Check Your Gift Card Balance
+        email_to_recipient: We will email the digital gift card to the recipient.
+        enter_gift_card_prompt: Enter a gift card number
+        gift_card: Gift Card
+        gift_card_number: Gift Card Number
+        message_to_recipient: Message to Recipient
+        place_order: Click the Place Order button below to complete your order.
+        recipients_email: Recipient's Email
+        senders_email: Your Name
+        tender_required: You must submit another payment method for %{amount}.
+      orders:
+        tenders:
+          gift_card:
+            title: Gift Card

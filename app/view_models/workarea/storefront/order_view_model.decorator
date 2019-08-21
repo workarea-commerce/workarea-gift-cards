@@ -1,0 +1,27 @@
+module Workarea
+  decorate Storefront::OrderViewModel, with: 'gift_card_display' do
+    decorated do
+      delegate :gift_card?, to: :payment
+    end
+
+    def gift_card_tender
+      payment.gift_card
+    end
+
+    def gift_card_display_number
+      gift_card_tender.try(:display_number)
+    end
+
+    def gift_card_tender_amount
+      if gift_card?
+        gift_card_tender.amount
+      else
+        0.to_m
+      end
+    end
+
+    def paid_amount
+      super - gift_card_tender_amount
+    end
+  end
+end
