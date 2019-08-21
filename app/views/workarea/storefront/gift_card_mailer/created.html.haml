@@ -4,7 +4,7 @@
     %p
       %strong= @from
       %br
-      = t('workarea.storefront.email.gift_card_created.message_html', link: link_to(Workarea.config.host, Workarea.config.host, style: "color: #{@config.link_color}"), amount: number_to_currency(@card.amount))
+      = t('workarea.storefront.email.gift_card_created.message_html', link: link_to(Workarea.config.host, Workarea.config.host), amount: number_to_currency(@card.amount))
 
     - if @card.message.present?
       %p

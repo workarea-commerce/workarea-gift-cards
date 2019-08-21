@@ -4,18 +4,12 @@ module Workarea
       module Storefront
         class GiftCardsController < Api::Storefront::ApplicationController
           def balance
-            email = params.fetch(:email, nil)
-            token = params.fetch(:token, nil)
-
-            if email.present? && token.present?
-              @gift_card = Payment::GiftCard.find_by_token_and_email(token, email)
-            end
+            @gift_card = Workarea::GiftCards.gateway.lookup(params)
 
             if @gift_card.blank?
               raise Mongoid::Errors::DocumentNotFound.new(
                 Payment::GiftCard,
-                email: email,
-                token: token
+                params.to_unsafe_h.except('controller', 'action')
               )
             end
           end

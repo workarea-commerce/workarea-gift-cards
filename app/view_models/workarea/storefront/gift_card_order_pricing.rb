@@ -1,35 +1,34 @@
 module Workarea
   module Storefront
     module GiftCardOrderPricing
-      def gift_card
-        return unless payment.gift_card.present?
-        @gift_card ||= Workarea::Payment::GiftCard.find_by_token(
-          payment.gift_card.number
-        )
+      extend ActiveSupport::Concern
+
+      def gift_cards
+        @gift_cards ||= payment.gift_cards.select(&:persisted?)
       end
 
-      def gift_card_balance
-        if gift_card.present?
-          gift_card.balance
-        else
-          0.to_m
-        end
+      def gift_card?
+        gift_cards.present?
       end
 
       def gift_card_amount
-        if gift_card_balance > total_after_store_credit
-          total_after_store_credit
-        else
-          gift_card_balance
-        end
+        gift_cards.sum(0.to_m, &:amount)
       end
 
-      def total_after_store_credit
-        order.total_price - store_credit_amount
+      def gift_card_balance
+        gift_cards.sum(0.to_m, &:balance)
       end
 
-      def order_balance
-        super - gift_card_amount
+      def total_before_gift_cards
+        order.total_price - advance_payment_amount + gift_card_amount
+      end
+
+      def advance_payment_amount
+        super + gift_card_amount
+      end
+
+      def failed_gift_card
+        @failed_gift_card ||= payment.gift_cards.reject(&:persisted?).first
       end
     end
   end

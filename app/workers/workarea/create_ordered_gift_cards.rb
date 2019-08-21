@@ -3,7 +3,12 @@ module Workarea
     include Sidekiq::Worker
     include Sidekiq::CallbacksWorker
 
-    sidekiq_options enqueue_on: { Fulfillment => :create }
+    sidekiq_options(
+      enqueue_on: {
+        Fulfillment => :create,
+        only_if: -> { Workarea::GiftCards.uses_system_cards? }
+      }
+    )
 
     def perform(order_id)
       order = Order.find(order_id)

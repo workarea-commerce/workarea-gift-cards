@@ -3,30 +3,25 @@ module Workarea
     class Refund
       class GiftCard
         include OperationImplementation
+        include GiftCardOperation
 
         def complete!
-          Payment::GiftCard.refund(tender.number, transaction.amount.cents)
+          response = gateway.refund(transaction.amount.cents, tender)
+
           transaction.response = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t(
-              'workarea.gift_cards.credit',
-              amount: transaction.amount,
-              number: tender.number
-            )
+            response.success?,
+            response.message
           )
         end
 
         def cancel!
           return unless transaction.success?
 
-          Payment::GiftCard.purchase(tender.number, transaction.amount.cents)
+          response = gateway.purchase(transaction.amount.cents, tender)
+
           transaction.cancellation = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t(
-              'workarea.gift_cards.debit',
-              amount: transaction.amount,
-              number: tender.number
-            )
+            response.success?,
+            response.message
           )
         end
       end

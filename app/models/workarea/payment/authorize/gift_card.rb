@@ -3,38 +3,25 @@ module Workarea
     module Authorize
       class GiftCard
         include OperationImplementation
+        include GiftCardOperation
 
         def complete!
-          Payment::GiftCard.purchase(tender.number, transaction.amount.cents)
+          response = gateway.authorize(transaction.amount.cents, tender)
 
           transaction.response = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t(
-              'workarea.gift_cards.debit',
-              amount: transaction.amount,
-              number: tender.number
-            )
-          )
-
-        rescue Payment::InsufficientFunds
-          transaction.response = ActiveMerchant::Billing::Response.new(
-            false,
-            I18n.t('workarea.gift_cards.insufficient_funds')
+            response.success?,
+            response.message
           )
         end
 
         def cancel!
           return unless transaction.success?
 
-          Payment::GiftCard.refund(tender.number, transaction.amount.cents)
+          response = gateway.cancel(transaction.amount.cents, tender)
 
           transaction.cancellation = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t(
-              'workarea.gift_cards.credit',
-              amount: transaction.amount,
-              number: tender.number
-            )
+            response.success?,
+            response.message
           )
         end
       end

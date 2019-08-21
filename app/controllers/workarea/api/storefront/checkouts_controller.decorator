@@ -5,6 +5,12 @@ module Workarea
         Checkout::Steps::GiftCard.new(current_checkout).update(params)
         render_checkout
       end
+
+      def remove_gift_card
+        step = Checkout::Steps::GiftCard.new(current_checkout)
+        step.remove(params[:gift_card_id])
+        render_checkout
+      end
     end
   end
 end

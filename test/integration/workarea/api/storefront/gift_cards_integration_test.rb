@@ -4,7 +4,7 @@ module Workarea
   if Plugin.installed?(:api)
     module Api
       module Storefront
-        class BalanceIntegrationTest < Workarea::IntegrationTest
+        class GiftCardsIntegrationTest < Workarea::IntegrationTest
           def test_balance_lookup
             gift_card = create_gift_card(
               to: 'bcrouse@weblinc.com',

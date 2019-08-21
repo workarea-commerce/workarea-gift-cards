@@ -1,5 +1,5 @@
 module Workarea
   module GiftCards
-    VERSION = '3.4.5'.freeze
+    VERSION = '4.0.0.pre'.freeze
   end
 end

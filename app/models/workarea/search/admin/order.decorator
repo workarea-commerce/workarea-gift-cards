@@ -1,9 +1,7 @@
 module Workarea
   decorate Search::Admin::Order, with: 'gift_cards' do
-    def search_text
-      result = super
-      result += " #{payment.gift_card.number}" if payment.gift_card.present?
-      result
+    def keywords
+      super + payment.gift_cards.map(&:number)
     end
   end
 end

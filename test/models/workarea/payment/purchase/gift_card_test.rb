@@ -15,16 +15,17 @@ module Workarea
         end
 
         def test_complete!
-          payment.set_gift_card(number: 'token')
+          payment.add_gift_card(number: 'token')
+          gift_card = payment.gift_cards.first
 
-          transaction = payment.gift_card.build_transaction(amount: 10.to_m)
+          transaction = gift_card.build_transaction(amount: 10.to_m)
 
-          GiftCard.new(payment.gift_card, transaction).complete!
+          GiftCard.new(gift_card, transaction).complete!
           refute(transaction.success?)
           assert(transaction.message.present?)
 
-          transaction = payment.gift_card.build_transaction(amount: 3.to_m)
-          purchase = GiftCard.new(payment.gift_card, transaction)
+          transaction = gift_card.build_transaction(amount: 3.to_m)
+          purchase = GiftCard.new(gift_card, transaction)
           purchase.complete!
 
           assert(transaction.success?)
@@ -32,10 +33,12 @@ module Workarea
         end
 
         def test_cancel!
-          payment.set_gift_card(number: 'token')
-          transaction = payment.gift_card.build_transaction(amount: 5.to_m)
+          payment.add_gift_card(number: 'token')
+          gift_card = payment.gift_cards.first
 
-          purchase = GiftCard.new(payment.gift_card, transaction)
+          transaction = gift_card.build_transaction(amount: 5.to_m)
+
+          purchase = GiftCard.new(gift_card, transaction)
           purchase.cancel!
 
           refute(transaction.cancellation.present?)

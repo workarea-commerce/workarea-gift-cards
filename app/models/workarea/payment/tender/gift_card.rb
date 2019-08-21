@@ -12,19 +12,12 @@ module Workarea
     end
 
     def amount=(amount)
-      if amount.blank?
-        super(amount)
-      elsif balance >= amount
-        super(amount)
-      else
-        super(balance)
-      end
+      return super(amount) if amount.blank? || balance >= amount
+      super(balance)
     end
 
-    private
-
     def balance
-      @balance ||= Payment::GiftCard.find_balance(number)
+      @balance ||= Workarea::GiftCards.gateway.balance(number)
     end
   end
 end

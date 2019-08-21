@@ -28,7 +28,7 @@ module Workarea
       index(expires_at: 1)
       index(created_at: 1)
 
-      alias number token
+      alias_method :number, :token
 
       validates :token, presence: true
       validates :amount, presence: true

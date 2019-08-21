@@ -3,21 +3,19 @@ module Workarea
     class Capture
       class GiftCard
         include OperationImplementation
+        include GiftCardOperation
 
         def complete!
-          # noop, authorization does the capture
+          response = gateway.capture(transaction.amount.cents, tender)
+
           transaction.response = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t('workarea.gift_cards.capture')
+            response.success?,
+            response.message
           )
         end
 
         def cancel!
           # noop, nothing to cancel
-          transaction.response = ActiveMerchant::Billing::Response.new(
-            true,
-            I18n.t('workarea.gift_cards.capture')
-          )
         end
       end
     end

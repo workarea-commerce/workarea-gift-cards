@@ -7,7 +7,7 @@ module Workarea
 
       order = Order.create!(placed_at: Time.now)
       payment = Payment.create!(id: order.id)
-      payment.set_gift_card(number: '123456')
+      payment.add_gift_card(number: '123456')
 
       LogGiftCardRedemption.new.perform(order.id)
       LogGiftCardRedemption.new.perform(order.id)

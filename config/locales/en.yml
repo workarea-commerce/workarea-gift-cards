@@ -52,6 +52,7 @@ en:
       credit: "%{amount} added to gift card %{number}"
       debit: "%{amount} deducted from gift card %{number}"
       insufficient_funds: This gift card doesn't not enough balance.
+      max_applied: You can only apply up to %{count} gift cards to an order.
     payment_gift_card:
       name: Gift Card %{token}
     storefront:
@@ -62,20 +63,29 @@ en:
           message_html: has purchased a gift certificate for you to use at %{link} in the amount of %{amount}.
           says: 'says:'
           subject: You've Got a Gift Certificate!
+      flash_messages:
+        gift_card_added: Your gift card has been applied.
+        gift_card_error: We couldn't add this gift card number.
+        gift_card_removed: Your gift card has been removed.
+        gift_card_balance: Your balance is %{balance}.
+        gift_card_not_found: Invalid card number or email.
       gift_cards:
-        applied_to_order: "%{amount} will be applied to your order."
+        applied_to_order_html: "%{amount} will be applied to your order."
         apply_gift_card: Apply
-        balance: Your gift card balance is %{amount}.
+        balance_html: Your total gift card balance is %{amount}.
+        balance_applied_html: '%{amount} of %{balance} balance will be applied to this order.'
         check_balance: Check Your Gift Card Balance
         email_to_recipient: We will email the digital gift card to the recipient.
         enter_gift_card_prompt: Enter a gift card number
-        gift_card: Gift Card
+        gift_card: Gift Cards
         gift_card_number: Gift Card Number
         message_to_recipient: Message to Recipient
         place_order: Click the Place Order button below to complete your order.
         recipients_email: Recipient's Email
+        remove: remove
+        remove_confirmation: Are you sure you want to remove this gift card?
         senders_email: Your Name
-        tender_required: You must submit another payment method for %{amount}.
+        tender_required_html: You must submit another payment method for %{amount}.
       orders:
         tenders:
           gift_card:

@@ -16,14 +16,14 @@ module Workarea
 
           def test_and_document_index
             description 'Listing payment gift cards'
-            route admin.payment_gift_cards_path
+            route admin_api.gift_cards_path
             parameter :page, 'Current page'
             parameter :sort_by, 'Field on which to sort (see responses for possible values)'
             parameter :sort_direction, 'Direction to sort (asc or desc)'
             2.times { |i| create_gift_card(to: "#{i}@weblinc.com") }
 
             record_request do
-              get admin_api.payment_gift_cards_path,
+              get admin_api.gift_cards_path,
                   params: { page: 1, sort_by: 'created_at', sort_direction: 'desc' }
 
               assert_equal(200, response.status)
@@ -32,10 +32,10 @@ module Workarea
 
           def test_and_document_create
             description 'Creating a gift card'
-            route admin_api.payment_gift_cards_path
+            route admin_api.gift_cards_path
 
             record_request do
-              post admin_api.payment_gift_cards_path,
+              post admin_api.gift_cards_path,
                    params: { gift_card: sample_attributes.merge('token' => 'foobar') },
                    as: :json
 
@@ -45,20 +45,20 @@ module Workarea
 
           def test_and_document_show
             description 'Showing a gift card'
-            route admin_api.payment_gift_card_path(':id')
+            route admin_api.gift_card_path(':id')
 
             record_request do
-              get admin_api.payment_gift_card_path(create_gift_card.id)
+              get admin_api.gift_card_path(create_gift_card.id)
               assert_equal(200, response.status)
             end
           end
 
           def test_and_document_update
             description 'Updating a gift card'
-            route admin_api.payment_gift_card_path(':id')
+            route admin_api.gift_card_path(':id')
 
             record_request do
-              patch admin_api.payment_gift_card_path(create_gift_card.id),
+              patch admin_api.gift_card_path(create_gift_card.id),
                     params: { gift_card: { to: 'test@weblinc.com' } },
                     as: :json
 
@@ -68,10 +68,24 @@ module Workarea
 
           def test_and_document_destroy
             description 'Removing a gift card'
-            route admin_api.payment_gift_card_path(':id')
+            route admin_api.gift_card_path(':id')
 
             record_request do
-              delete admin_api.payment_gift_card_path(create_gift_card.id)
+              delete admin_api.gift_card_path(create_gift_card.id)
+              assert_equal(204, response.status)
+            end
+          end
+
+          def test_and_document_bulk_upsert
+            description 'Bulk upserting gift cards'
+            route admin_api.bulk_gift_cards_path
+
+            data = Array.new(3) do |i|
+              sample_attributes.merge('token' => "GC#{i}")
+            end
+
+            record_request do
+              patch admin_api.bulk_gift_cards_path, params: { gift_cards: data }, as: :json
               assert_equal(204, response.status)
             end
           end
