@@ -4,7 +4,7 @@ module Workarea
   class Payment
     class GiftCardTest < TestCase
       def test_currency
-        @_existing_currency = Money.default_currency
+        existing_currency = Money.default_currency
         usd = Money::Currency.new('USD')
         aud = Money::Currency.new('AUD')
 
@@ -18,7 +18,7 @@ module Workarea
 
         assert_equal(aud, card.used.currency)
       ensure
-        Money.default_currency = @_existing_currency
+        Money.default_currency = existing_currency
       end
 
       def test_not_expired
