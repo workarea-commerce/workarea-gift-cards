@@ -1,7 +1,8 @@
 {
     "extends": "eslint:recommended",
     "rules": {
-      "semi": [1, "always"]
+      "semi": ["error", "always"],
+      "eqeqeq": ["error", "always"]
     },
     "globals": {
       "window": true,
@@ -20,5 +21,15 @@
       "Waypoint": true,
       "wysihtml": true,
       "LocalTime": true,
+      "describe": true,
+      "after": true,
+      "afterEach": true,
+      "before": true,
+      "beforeEach": true,
+      "it": true,
+      "expect": true,
+      "sinon": true,
+      "fixture": true,
+      "chai": true
     }
 }

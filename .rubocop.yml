@@ -1,0 +1,2 @@
+inherit_from:
+  - https://raw.githubusercontent.com/workarea-commerce/workarea/update-rubocop/.rubocop.yml
