@@ -16,9 +16,9 @@ module Workarea
       # by a customer purchasing it.
       field :order_id, type: String
 
-      field :amount, type: Money, default: 0.to_m
-      field :used, type: Money, default: 0.to_m
-      field :balance, type: Money, default: 0.to_m
+      field :amount, type: Money, default: 0
+      field :used, type: Money, default: 0
+      field :balance, type: Money, default: 0
 
       has_many :redemptions, class_name: 'Workarea::Payment::GiftCard::Redemption'
 
