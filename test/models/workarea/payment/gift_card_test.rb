@@ -3,6 +3,24 @@ require 'test_helper'
 module Workarea
   class Payment
     class GiftCardTest < TestCase
+      def test_currency
+        existing_currency = Money.default_currency
+        usd = Money::Currency.new('USD')
+        aud = Money::Currency.new('AUD')
+
+        card = GiftCard.create!(amount: 10.to_m)
+        Money.default_currency = usd
+
+        assert_equal(usd, card.used.currency)
+
+        Money.default_currency = aud
+        card = GiftCard.create!(amount: 10.to_m)
+
+        assert_equal(aud, card.used.currency)
+      ensure
+        Money.default_currency = existing_currency
+      end
+
       def test_not_expired
         expired     = Workarea::Payment::GiftCard.create!(amount: 10.to_m, expires_at: Time.now - 1.day)
         not_expired = Workarea::Payment::GiftCard.create!(amount: 10.to_m, expires_at: Time.now + 1.day)
