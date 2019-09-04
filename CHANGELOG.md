@@ -1,3 +1,14 @@
+Workarea Gift Cards 3.4.7 (2019-09-04)
+--------------------------------------------------------------------------------
+
+*   Always Use Configured Currency For Default Values (#1)
+
+    When specifying a `default:` for a Mongoid `Money` field, use an Integer
+    type like `0` instead of converting it to a Money type, as this will get
+    evaluated at compile-time rather than at runtime. Doing so preserves
+    the currency configuration specified by the application at runtime.
+
+
 Workarea Gift Cards 3.4.6 (2019-08-21)
 --------------------------------------------------------------------------------
 
