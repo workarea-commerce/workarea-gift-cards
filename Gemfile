@@ -3,5 +3,5 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gemspec
 
-gem 'workarea-api', '>= 4.1.x'
+gem 'workarea-api', github: 'workarea-commerce/workarea-api'
 gem 'workarea', github: 'workarea-commerce/workarea'

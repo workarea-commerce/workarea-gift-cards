@@ -11,9 +11,6 @@ jobs:
     - uses: workarea-commerce/ci/eslint@v1
       with:
         args: '**/*.js'
-    - uses: workarea-commerce/ci/stylelint@v1
-      with:
-        args: '**/*.scss'
 
   admin_tests:
     runs-on: ubuntu-latest
