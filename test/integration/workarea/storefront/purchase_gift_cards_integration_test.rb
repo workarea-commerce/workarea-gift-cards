@@ -11,10 +11,11 @@ module Workarea
         product = create_product(
           name: 'Gift Card',
           gift_card: true,
-          digital: true,
           customizations: 'gift_card',
           variants: [{ sku: 'GIFTCARD', regular: 10.to_m }]
         )
+
+        create_fulfillment_sku(id: 'GIFTCARD', policy: :create_gift_card)
 
         post storefront.cart_items_path,
              params: {

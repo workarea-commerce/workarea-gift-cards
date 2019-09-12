@@ -9,7 +9,6 @@ module Workarea
         product = create_product(
           name: 'Gift Card',
           gift_card: true,
-          digital: true,
           template: 'gift_card',
           customizations: 'gift_card',
           variants: [
@@ -18,6 +17,10 @@ module Workarea
             { sku: 'SKU3', regular: 25.to_m }
           ]
         )
+
+        create_fulfillment_sku(id: 'SKU1', policy: :create_gift_card)
+        create_fulfillment_sku(id: 'SKU2', policy: :create_gift_card)
+        create_fulfillment_sku(id: 'SKU3', policy: :create_gift_card)
 
         visit storefront.product_path(product)
 
@@ -50,7 +53,6 @@ module Workarea
         product = create_product(
           name: 'Gift Card',
           gift_card: true,
-          digital: true,
           template: 'gift_card',
           customizations: 'gift_card',
           variants:  [
@@ -59,6 +61,10 @@ module Workarea
             { sku: 'SKU3', regular: 25.to_m }
           ]
         )
+
+        create_fulfillment_sku(id: 'SKU1', policy: :create_gift_card)
+        create_fulfillment_sku(id: 'SKU2', policy: :create_gift_card)
+        create_fulfillment_sku(id: 'SKU3', policy: :create_gift_card)
 
         visit storefront.product_path(product)
 
