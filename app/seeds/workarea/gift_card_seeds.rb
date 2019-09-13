@@ -12,7 +12,6 @@ module Workarea
         id: 'GIFT_CARD',
         name: 'Gift Card',
         gift_card: true,
-        digital: true,
         template: 'gift_card',
         customizations: 'gift_card',
         description: Faker::Lorem.paragraph,
@@ -25,19 +24,20 @@ module Workarea
 
       product.save!
 
-      Workarea::Pricing::Sku.find_or_create_by(
+
+      Workarea::Fulfillment::Sku.find_or_create_by(
         id: 'GIFT_CARD_10',
-        prices: [{ regular: 10 }]
+        policy: :create_gift_card
       )
 
-      Workarea::Pricing::Sku.find_or_create_by(
+      Workarea::Fulfillment::Sku.find_or_create_by(
         id: 'GIFT_CARD_25',
-        prices: [{ regular: 25 }]
+        policy: :create_gift_card
       )
 
-      Workarea::Pricing::Sku.find_or_create_by(
+      Workarea::Fulfillment::Sku.find_or_create_by(
         id: 'GIFT_CARD_50',
-        prices: [{ regular: 50 }]
+        policy: :create_gift_card
       )
     end
   end
