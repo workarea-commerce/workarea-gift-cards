@@ -10,7 +10,7 @@ module Workarea
             product_id: 'PROD',
             sku: 'SKU',
             gift_card: true,
-            requires_shipping: false,
+            fulfillment: 'create_gift_card',
             customizations: {
               'email' => 'bob@workarea.com',
               'from' => 'system@workarea.com',
