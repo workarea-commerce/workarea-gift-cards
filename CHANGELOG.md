@@ -1,7 +1,7 @@
 Workarea Gift Cards 4.0.0 (2019-11-26)
 --------------------------------------------------------------------------------
 
-*   Update README
+*   Use custom fulfillment policy for digital gift card generation
 
     Curt Howard
 
