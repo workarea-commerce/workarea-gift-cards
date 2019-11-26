@@ -111,7 +111,7 @@ Note that it is set to a string of the class constant, and not an instance of th
 Workarea Commerce Documentation
 --------------------------------------------------------------------------------
 
-See [https://developer.workarea.com](https://developer.workarea.com) for Workarea Commerce documentation.
+See [https://developer.workarea.com](https://developer.workarea.com) for Workarea Commerce documentation
 
 License
 --------------------------------------------------------------------------------
