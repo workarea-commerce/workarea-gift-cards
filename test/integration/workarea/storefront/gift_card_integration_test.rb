@@ -80,7 +80,7 @@ module Workarea
                 credit_card: {
                   number: '1',
                   month:  1,
-                  year:   2020,
+                  year:   next_year,
                   cvv:    '999'
                 }
               }
@@ -121,7 +121,7 @@ module Workarea
         assert_equal('Test Card', payment.credit_card.issuer)
         assert_equal('XXXX-XXXX-XXXX-1', payment.credit_card.display_number)
         assert_equal(1, payment.credit_card.month)
-        assert_equal(2020, payment.credit_card.year)
+        assert_equal(next_year, payment.credit_card.year)
         assert_equal(13.19.to_m, payment.credit_card.amount)
         assert(payment.credit_card.token.present?)
         assert(payment.credit_card.saved_card_id.blank?)
@@ -190,7 +190,7 @@ module Workarea
                 credit_card: {
                   number: '1',
                   month:  1,
-                  year:   2020,
+                  year:   next_year,
                   cvv:    '999'
                 }
               }
