@@ -1,3 +1,24 @@
+Workarea Gift Cards 4.0.1 (2020-01-21)
+--------------------------------------------------------------------------------
+
+*   Fix Tests for 2020
+
+    Update all tests so that they no longer depend on the year 2020 as an
+    expiration year. Instead, use the  method provided by Workarea.
+
+    GIFTCARDS-6
+    Tom Scott
+
+*   Fix Tests for 2020
+
+    Update all tests so that they no longer depend on the year 2020 as an
+    expiration year. Instead, use the  method provided by Workarea.
+
+    GIFTCARDS-6
+    Tom Scott
+
+
+
 Workarea Gift Cards 4.0.0 (2019-11-26)
 --------------------------------------------------------------------------------
 
