@@ -1,2 +1,197 @@
-inherit_from:
-  - https://raw.githubusercontent.com/workarea-commerce/workarea/master/.rubocop.yml
+AllCops:
+  TargetRubyVersion: 2.4
+  # RuboCop has a bunch of cops enabled by default. This setting tells RuboCop
+  # to ignore them, so only the ones explicitly set in this file are enabled.
+  DisabledByDefault: true
+
+# Prefer &&/|| over and/or.
+Style/AndOr:
+  Enabled: true
+  Exclude:
+    - 'testing/lib/workarea/performance_test.rb'
+    - 'admin/app/controllers/workarea/admin/help_authorization.rb'
+    - 'admin/app/controllers/workarea/admin/users_controller.rb'
+    - 'core/app/controllers/workarea/authorization.rb'
+    - 'core/app/models/workarea/analytics/time_series.rb'
+    - 'core/app/models/workarea/payment/operation.rb'
+    - 'core/lib/workarea/validators/ip_address_validator.rb'
+    - 'script/rename'
+    - 'storefront/app/controllers/workarea/storefront/checkout/place_order_controller.rb'
+    - 'storefront/app/controllers/workarea/storefront/current_checkout.rb'
+    - 'storefront/app/controllers/workarea/storefront/searches_controller.rb'
+    - 'storefront/app/controllers/workarea/storefront/users/orders_controller.rb'
+    - 'storefront/app/controllers/workarea/storefront/users/passwords_controller.rb'
+
+# Align `when` with `case`.
+Layout/CaseIndentation:
+  Enabled: true
+  Exclude:
+    - 'admin/app/helpers/workarea/admin/dashboard_helper.rb'
+
+# Align comments with method definitions.
+Layout/CommentIndentation:
+  Enabled: true
+
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
+# In a regular class definition, no empty lines around the body.
+Layout/EmptyLinesAroundClassBody:
+  Enabled: true
+  Exclude:
+    - 'admin/app/controllers/workarea/admin/release_sessions_controller.rb'
+    - 'admin/app/view_models/workarea/admin/release_calendar_view_model.rb'
+    - 'admin/lib/workarea/mailer_previews/admin/comment_mailer_preview.rb'
+    - 'admin/test/integration/workarea/admin/content_blocks_integration_test.rb'
+    - 'admin/test/view_models/workarea/admin/content_view_model_test.rb'
+    - 'core/app/models/workarea/checkout/steps/addresses.rb'
+    - 'core/app/models/workarea/pricing/discount/buy_some_get_some/product_application.rb'
+    - 'core/app/queries/workarea/metadata/catalog_category.rb'
+    - 'core/app/queries/workarea/metadata/content_page.rb'
+    - 'core/app/queries/workarea/search/facet.rb'
+    - 'core/app/queries/workarea/search/range_filter.rb'
+    - 'core/config/initializers/13_rack_attack.rb'
+    - 'core/lib/generators/workarea/override/override_generator.rb'
+    - 'core/lib/workarea/elasticsearch/query_cache.rb'
+    - 'core/lib/workarea/monitoring/elasticsearch_check.rb'
+    - 'core/lib/workarea/monitoring/mongoid_check.rb'
+    - 'core/lib/workarea/monitoring/sidekiq_queue_size_check.rb'
+    - 'core/lib/workarea/validators/email_validator.rb'
+    - 'core/test/lib/workarea/mail_interceptor_test.rb'
+    - 'core/test/models/workarea/commentable_test.rb'
+    - 'core/test/models/workarea/search/settings_test.rb'
+    - 'core/test/models/workarea/shipping/rate_lookup_test.rb'
+    - 'core/test/queries/workarea/find_pipeline_asset_test.rb'
+    - 'core/test/queries/workarea/product_primary_image_url_test.rb'
+    - 'core/test/queries/workarea/search/filter_test.rb'
+    - 'core/test/workers/workarea/bulk_index_admin_test.rb'
+    - 'core/test/workers/workarea/bulk_index_products_test.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/australia_post.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/canada_post_pws.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/usps_returns.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/delivery_date_estimates_response.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/rate_response.rb'
+    - 'core/vendor/active_shipping/test/remote/australia_post_test.rb'
+    - 'core/vendor/active_shipping/test/remote/usps_returns_test.rb'
+    - 'core/vendor/active_shipping/test/unit/carriers/australia_post_test.rb'
+    - 'core/vendor/active_shipping/test/unit/carriers/canada_post_pws_test.rb'
+    - 'core/vendor/active_shipping/test/unit/carriers/usps_returns_test.rb'
+    - 'storefront/app/view_models/workarea/storefront/content_blocks/product_list_view_model.rb'
+    - 'storefront/app/view_models/workarea/storefront/product_view_model.rb'
+    - 'storefront/lib/workarea/mailer_previews/storefront/order_mailer_preview.rb'
+    - 'storefront/test/performance/workarea/storefront/categories_performance_test.rb'
+    - 'storefront/test/performance/workarea/storefront/search_performance_test.rb'
+    - 'storefront/test/view_models/workarea/storefront/user_activity_view_model_test.rb'
+
+# In a regular method definition, no empty lines around the body.
+Layout/EmptyLinesAroundMethodBody:
+  Enabled: true
+
+# In a regular module definition, no empty lines around the body.
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: true
+  Exclude:
+    - 'core/lib/workarea/ext/mongoid/timestamps_timeless.rb'
+    - 'storefront/app/view_models/workarea/storefront/search_customization_content.rb'
+    - 'testing/lib/workarea/testing/warning_suppressor.rb'
+
+# Use Ruby >= 1.9 syntax for hashes. Prefer { a: :b } over { :a => :b }.
+Style/HashSyntax:
+  Enabled: true
+
+Layout/SpaceAfterColon:
+  Enabled: true
+  Exclude:
+    - 'testing/lib/workarea/testing/factories/content.rb'
+    - 'testing/lib/workarea/testing/factories/pricing.rb'
+
+Layout/SpaceAfterComma:
+  Enabled: true
+  Exclude:
+    - 'admin/app/controllers/workarea/admin/shipping_services_controller.rb'
+    - 'admin/test/helpers/workarea/admin/application_helper_test.rb'
+    - 'core/app/models/workarea/payment/credit_card.rb'
+    - 'core/app/models/workarea/pricing/request.rb'
+    - 'core/spec/lib/workarea/swappable_list_spec.rb'
+    - 'core/test/models/workarea/inventory_test.rb'
+    - 'core/test/queries/workarea/search/range_facet_test.rb'
+    - 'storefront/test/view_models/workarea/storefront/package_view_model_test.rb'
+
+Layout/SpaceAroundEqualsInParameterDefault:
+  Enabled: true
+  Exclude:
+    - 'admin/app/helpers/workarea/admin/content_block_icon_helper.rb'
+    - 'core/app/helpers/workarea/content_assets_helper.rb'
+    - 'core/lib/workarea/elasticsearch/query_cache.rb'
+    - 'testing/lib/workarea/system_test.rb'
+    - 'testing/lib/workarea/testing/locale_routing_fixes.rb'
+
+
+Layout/SpaceAroundKeyword:
+  Enabled: true
+
+Layout/SpaceAroundOperators:
+  Enabled: true
+  Exclude:
+    - 'admin/app/controllers/workarea/admin/content_emails_controller.rb'
+    - 'admin/app/controllers/workarea/admin/users_controller.rb'
+    - 'core/app/helpers/workarea/content_assets_helper.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/canada_post_pws.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/fedex.rb'
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/stamps.rb'
+
+Layout/SpaceBeforeFirstArg:
+    Enabled: true
+
+# Defining a method with parameters needs parentheses.
+Style/MethodDefParentheses:
+  Enabled: true
+
+# Use `foo {}` not `foo{}`.
+Layout/SpaceBeforeBlockBraces:
+  Enabled: true
+  Exclude:
+    - 'admin/app/view_models/workarea/admin/release_calendar_view_model.rb'
+
+# Use `foo { bar }` not `foo {bar}`.
+Layout/SpaceInsideBlockBraces:
+  Enabled: true
+
+# Use `{ a: 1 }` not `{a:1}`.
+Layout/SpaceInsideHashLiteralBraces:
+  Enabled: true
+  Exclude:
+    - 'admin/test/integration/workarea/admin/pricing_sku_prices_integration_test.rb'
+    - 'admin/test/integration/workarea/admin/shipping_service_integration_test.rb'
+    - 'admin/test/integration/workarea/admin/tax_categories_integration_test.rb'
+    - 'admin/test/view_models/workarea/admin/changeset_view_model_test.rb'
+    - 'core/app/models/workarea/release/changeset.rb'
+    - 'core/app/queries/workarea/search/product_rules.rb'
+    - 'core/app/queries/workarea/search/term_filter.rb'
+    - 'core/lib/workarea/configuration.rb'
+    - 'core/spec/models/workarea/order_spec.rb'
+    - 'core/test/models/workarea/application_document_test.rb'
+    - 'core/test/models/workarea/fulfillment_test.rb'
+    - 'core/test/queries/workarea/search/product_rules_test.rb'
+    - 'core/test/workers/workarea/generate_content_metadata_test.rb'
+
+Layout/SpaceInsideParens:
+  Enabled: true
+  Exclude:
+    - 'core/app/models/workarea/inventory/collection.rb'
+    - 'core/app/models/workarea/pricing/calculators/item_calculator.rb'
+    - 'core/spec/models/workarea/order/queries_spec.rb'
+
+# Detect hard tabs, no hard tabs.
+Layout/Tab:
+  Enabled: true
+  Exclude:
+    - 'core/vendor/active_shipping/lib/active_shipping/carriers/canada_post.rb'
+
+# No trailing whitespace.
+Layout/TrailingWhitespace:
+  Enabled: true
+
+# Use my_method(my_arg) not my_method( my_arg ) or my_method my_arg.
+Lint/RequireParentheses:
+  Enabled: true
