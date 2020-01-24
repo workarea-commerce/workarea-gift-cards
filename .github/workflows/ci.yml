@@ -7,8 +7,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
-    - uses: workarea-commerce/ci/bundler-audit@v1
-    - uses: workarea-commerce/ci/rubocop@v1
+    - uses: workarea-commerce/ci/bundler-audit@ruby-2.4
+    - uses: workarea-commerce/ci/rubocop@ruby-2.4
     - uses: workarea-commerce/ci/eslint@v1
       with:
         args: '**/*.js'
