@@ -1,17 +1,14 @@
 name: CI
 on: [push]
-
+env:
+  BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
 jobs:
   static_analysis:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v1
     - uses: workarea-commerce/ci/bundler-audit@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
     - uses: workarea-commerce/ci/rubocop@v1
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
     - uses: workarea-commerce/ci/eslint@v1
       with:
         args: '**/*.js'
@@ -26,8 +23,6 @@ jobs:
     - uses: workarea-commerce/ci/test@v1
       with:
         command: bin/rails app:workarea:test:admin
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
 
   core_tests:
     runs-on: ubuntu-latest
@@ -39,8 +34,6 @@ jobs:
     - uses: workarea-commerce/ci/test@v1
       with:
         command: bin/rails app:workarea:test:core
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
 
   storefront_tests:
     runs-on: ubuntu-latest
@@ -52,8 +45,6 @@ jobs:
     - uses: workarea-commerce/ci/test@v1
       with:
         command: bin/rails app:workarea:test:storefront
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
 
   plugins_tests:
     runs-on: ubuntu-latest
@@ -65,5 +56,3 @@ jobs:
     - uses: workarea-commerce/ci/test@v1
       with:
         command: bin/rails app:workarea:test:plugins
-      env:
-        BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
