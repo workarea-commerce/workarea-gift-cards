@@ -5,5 +5,5 @@ gemspec
 
 source 'https://gems.weblinc.com' do
   gem 'workarea', '~> 3.3.0'
-  gem 'workarea-api', '~> 4.1.0'
+  gem 'workarea-api', '~> 4.3.0'
 end
