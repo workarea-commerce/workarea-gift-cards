@@ -1,3 +1,40 @@
+Workarea Gift Cards 3.4.10 (2020-02-04)
+--------------------------------------------------------------------------------
+
+*   Fix the Gemfile
+
+    Tom Scott
+
+*   Remove ESLint from Gift Cards build
+
+    Tom Scott
+
+*   Fix rubocop config for 2.4
+
+    Tom Scott
+
+*   Use the same ruby version on static analysis as we use in tests
+
+    Tom Scott
+
+*   Use the same env var everywhere
+
+    Tom Scott
+
+*   Backport Missing `:via` Param
+
+    The `:via` param was not included on the gift card template, causing a
+    test in base to fail and subsequently block other plugin development
+    that depends on this gem. This change is from a later version of
+    Workarea, but was not backported to earlier versions. Additionally, this
+    commit adds the test workflow and ensures the correct version of
+    Workarea is being loaded to ensure accurate testing.
+
+    GIFTCARDS-7
+    Tom Scott
+
+
+
 Workarea Gift Cards 3.4.9 (2020-01-21)
 --------------------------------------------------------------------------------
 
