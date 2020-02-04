@@ -1,0 +1,55 @@
+name: CI
+on: [push]
+env:
+  BUNDLE_GEMS__WEBLINC__COM: ${{ secrets.BUNDLE_GEMS__WEBLINC__COM }}
+jobs:
+  static_analysis:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: workarea-commerce/ci/bundler-audit@ruby-2.4
+    - uses: workarea-commerce/ci/rubocop@ruby-2.4
+
+  admin_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.4.x
+    - uses: workarea-commerce/ci/test@v1
+      with:
+        command: bin/rails app:workarea:test:admin
+
+  core_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.4.x
+    - uses: workarea-commerce/ci/test@v1
+      with:
+        command: bin/rails app:workarea:test:core
+
+  storefront_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.4.x
+    - uses: workarea-commerce/ci/test@v1
+      with:
+        command: bin/rails app:workarea:test:storefront
+
+  plugins_tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v1
+    - uses: actions/setup-ruby@v1
+      with:
+        ruby-version: 2.4.x
+    - uses: workarea-commerce/ci/test@v1
+      with:
+        command: bin/rails app:workarea:test:plugins

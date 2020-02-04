@@ -16,6 +16,7 @@
 
       = form_tag cart_items_path, method: 'post', class: 'product-details__add-to-cart-form', data: { dialog_form: { dialogOptions: { closeAll: true, initModules: true } }, analytics: add_to_cart_analytics_data(product).to_json } do
         = hidden_field_tag :product_id, product.id, id: dom_id(product, 'product_id')
+        = hidden_field_tag :via, params[:via], id: dom_id(product, 'via')
 
         - if product.sku_options.one?
           = hidden_field_tag :sku, product.sku_options.first.second

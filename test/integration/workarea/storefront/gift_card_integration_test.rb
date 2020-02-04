@@ -5,6 +5,10 @@ module Workarea
     class GiftCardIntegrationTest < Workarea::IntegrationTest
       setup :tax, :product, :shipping_service, :gift_card
 
+      def next_year
+        1.year.from_now.year
+      end
+
       def tax
         @tax ||= create_tax_category(
           name: 'Sales Tax',
