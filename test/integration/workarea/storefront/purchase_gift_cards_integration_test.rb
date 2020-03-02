@@ -2,7 +2,7 @@ require 'test_helper'
 
 module Workarea
   module Storefront
-    class PurchaseGiftCardIntegrationTest < Workarea::IntegrationTest
+    class PurchaseGiftCardsIntegrationTest < Workarea::IntegrationTest
       include Storefront::IntegrationTest
 
       def test_generates_gift_card
