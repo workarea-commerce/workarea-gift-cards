@@ -107,6 +107,30 @@ end
 
 Note that it is set to a string of the class constant, and not an instance of the class. The system constantizes and initializes a new instance whenever it uses the gateway to ensure autoloading works correctly and so a gateway that cares about the current state of the application is applied correctly. This is most relevant in multi-site environments where each site might want to use their own gift card gateway.
 
+### Testing Your Custom Gateway
+
+Workarea comes with unit tests for the main Gateway class, and you can
+decorate this test to provide your own setup code. A minimal
+implementation would look as follows:
+
+```ruby
+module Workarea
+  module GiftCards
+    decorate GatewayTest do
+      # Provide your own Gateway instance here to use it in each test.
+      def gateway
+        CustomGiftCardGateway.new
+      end
+
+      # Provide a custom object representing a Gift Card on your
+      # 3rd-party service.
+      def gift_card
+        CustomGiftCard.new(balance: 10.to_m)
+      end
+    end
+  end
+end
+```
 
 Workarea Commerce Documentation
 --------------------------------------------------------------------------------
