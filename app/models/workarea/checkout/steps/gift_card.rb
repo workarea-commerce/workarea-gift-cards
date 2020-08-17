@@ -12,8 +12,9 @@ module Workarea
         #
         def update(params = {})
           gift_card_params = extract_gift_card_params(params)
-          return false unless applicable_gift_card?(gift_card_params)
-          return false unless add_gift_card(gift_card_params)
+
+          add_gift_card(gift_card_params) if applicable_gift_card?(gift_card_params)
+
           update_order
         end
 
