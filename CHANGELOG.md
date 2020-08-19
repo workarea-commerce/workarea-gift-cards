@@ -1,3 +1,34 @@
+Workarea Gift Cards 4.0.3 (2020-08-19)
+--------------------------------------------------------------------------------
+
+*   Fix Update Step Result
+
+    Prevent returning `false` early when no Gift Card params are set. This
+    ensures the step won't block checkout.
+
+    Tom Scott
+
+*   Improve Test Experience For Custom Gift Card Gateways
+
+    If you're creating a new custom gift card gateway for your project, and
+    you want to use the tests from base as a starting point for that
+    integration, you currently must duplicate the tests from the plugin in
+    your own plugin, which makes things a bit harder but also removes the
+    ability to take on updates to the test in case of bug fixes. To improve
+    this experience, the `Workarea::GiftCards::GatewayTest` has been
+    modified to more easily allow decorating it in a host application. All
+    tests are now wrapped in a VCR cassette whose name is defined by the
+    parameterized gateway class name and the name of the method being
+    tested. This will activate and create cassettes in the real world when a
+    gateway makes an outbound HTTP call, similar to
+    `CreditCardIntegrationTest`.
+
+    GIFTCARDS-9
+
+    Tom Scott
+
+
+
 Workarea Gift Cards 4.0.2 (2020-03-03)
 --------------------------------------------------------------------------------
 
