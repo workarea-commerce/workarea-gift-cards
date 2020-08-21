@@ -14,13 +14,12 @@ module Workarea
         # @return [Boolean] whether the update succeeded (payment were saved)
         #
         def update(params = {})
-          return false unless params[:gift_card_number].present?
-          gift_card_number = params[:gift_card_number].to_s.gsub(/\s+/, '')
+          gift_card_number = params[:gift_card_number].to_s.gsub(/\s+/, '') if params[:gift_card_number].present?
 
-          return false unless valid_number?(gift_card_number)
-          payment.set_gift_card(number: gift_card_number)
+          payment.set_gift_card(number: gift_card_number) if valid_number?(gift_card_number)
 
           Pricing.perform(order, shippings)
+
           payment.adjust_tender_amounts(order.total_price)
         end
 
