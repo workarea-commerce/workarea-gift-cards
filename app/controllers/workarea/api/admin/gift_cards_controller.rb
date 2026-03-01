@@ -250,7 +250,7 @@ module Workarea
           end
 
           def update
-            @gift_card.update_attributes!(params[:gift_card])
+            @gift_card.update!(params[:gift_card])
             respond_with gift_card: @gift_card
           end
 
