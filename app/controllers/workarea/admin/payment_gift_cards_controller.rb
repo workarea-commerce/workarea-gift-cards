@@ -25,7 +25,7 @@ module Workarea
       def edit; end
 
       def update
-        if @gift_card.update_attributes(gift_card_params)
+        if @gift_card.update(gift_card_params)
           flash[:success] = 'Gift card has been saved.'
           redirect_to payment_gift_card_path(@gift_card)
         else
