@@ -1,57 +1,89 @@
 name: CI
-on: [push]
+on: [push, pull_request]
 
 jobs:
-  static_analysis:
+  lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1
-    - uses: workarea-commerce/ci/bundler-audit@v1
-    - uses: workarea-commerce/ci/rubocop@v1
-    - uses: workarea-commerce/ci/eslint@v1
-      with:
-        args: '**/*.js'
+      - uses: actions/checkout@v4
+        # actions/checkout v4 SHA: 11bd71901bbe5b1630ceea73d27597364c9af683
 
-  admin_tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-    - uses: workarea-commerce/ci/test@v1
-      with:
-        command: bin/rails app:workarea:test:admin
+      # Replace workarea-commerce/ci/bundler-audit@v1 and rubocop@v1 Docker actions.
+      # Those are pinned to ruby:2.6 and fail on any modern runner.
+      # Note: this repo has no package.json, so ESLint/Stylelint are not run.
+      - uses: ruby/setup-ruby@v1
+        # ruby/setup-ruby v1 SHA: 32110d4e311bd8996b2a82bf2a43b714cdd91341
+        with:
+          ruby-version: '2.7'
+          bundler-cache: true
 
-  core_tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-    - uses: workarea-commerce/ci/test@v1
-      with:
-        command: bin/rails app:workarea:test:core
+      - name: RuboCop
+        run: bundle exec rubocop
 
-  storefront_tests:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-    - uses: workarea-commerce/ci/test@v1
-      with:
-        command: bin/rails app:workarea:test:storefront
+      - name: bundler-audit
+        run: bundle exec bundler-audit check --update
 
-  plugins_tests:
+  test:
     runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ['2.7', '3.2']
+
+    services:
+      mongodb:
+        image: mongo:4.4
+        ports:
+          - 27017:27017
+
+      elasticsearch:
+        image: docker.elastic.co/elasticsearch/elasticsearch:5.6.16
+        env:
+          discovery.type: single-node
+          xpack.security.enabled: 'false'
+          ES_JAVA_OPTS: -Xms512m -Xmx512m
+        ports:
+          - 9200:9200
+        options: >-
+          --health-cmd "curl -s http://localhost:9200/_cluster/health"
+          --health-interval 15s
+          --health-timeout 10s
+          --health-retries 10
+
+      redis:
+        image: redis:6
+        ports:
+          - 6379:6379
+
     steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-ruby@v1
-      with:
-        ruby-version: 2.6.x
-    - uses: workarea-commerce/ci/test@v1
-      with:
-        command: bin/rails app:workarea:test:plugins
+      - uses: actions/checkout@v4
+
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Wait for Elasticsearch
+        run: |
+          timeout 120 bash -c \
+            'until curl -s http://localhost:9200/_cluster/health > /dev/null; do sleep 5; done'
+
+      - name: Run admin tests
+        run: bin/rails app:workarea:test:admin
+        env:
+          CI: 'true'
+
+      - name: Run core tests
+        run: bin/rails app:workarea:test:core
+        env:
+          CI: 'true'
+
+      - name: Run storefront tests
+        run: bin/rails app:workarea:test:storefront
+        env:
+          CI: 'true'
+
+      - name: Run plugin tests
+        run: bin/rails app:workarea:test:plugins
+        env:
+          CI: 'true'
